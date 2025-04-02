@@ -89,19 +89,19 @@ Content-Type: application/json
 }
 ```
 **Como Ejecutar este proyecto**
-1. Clona este proyecto
-```http
+1. **Clona este proyecto**
+```
 git clone https://github.com/BetzabeG/gestion-universidad.git
 ```
-2. Navega al directorio de este proyecto en tu local
-```http
+2. **Navega al directorio de este proyecto en tu local**
+```
 cd SegundoProyecto
 ```
-3. Compila y ejecuta el proyecto
-```http
+3. **Compila y ejecuta el proyecto**
+```
 mvn clean install
 ```
-```http
+```
 java -jar .\target\SegundoProyecto-0.0.1-SNAPSHOT.jar
 ``` 
 
