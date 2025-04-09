@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface IEstudianteService {
     List<EstudianteDTO> obtenerTodosLosEstudiantes();
+
     EstudianteDTO obtenerEstudiantePorId(Long id);
     EstudianteDTO actualizarEstudiante(Long id, EstudianteDTO estudianteDTO);
     // Para crear un nuevo estudiante

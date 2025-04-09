@@ -45,7 +45,7 @@ public class EstudianteServiceimpl implements IEstudianteService{
             .orElseThrow(() -> new RuntimeException("Estudiante no encontrado con ID: " + id));
         return convertirEstudianteADTO(estudiante);
     }
-
+    /*
     @Override
     public EstudianteDTO actualizarEstudiante(Long id, EstudianteDTO estudianteDTO) {
         Estudiante estudianteExistente = estudianteRepository.findById(id)
@@ -58,7 +58,17 @@ public class EstudianteServiceimpl implements IEstudianteService{
 
         Estudiante estudianteActualizado = estudianteRepository.save(estudianteExistente);
         return convertirEstudianteADTO(estudianteActualizado);
+    }*/
+    @Override
+    public EstudianteDTO actualizarEstudiante(Long id, EstudianteDTO estudianteDTO) {
+        obtenerEstudiantePorId(id);
+        Estudiante estudianteActualizado = convertirDTOaEstudiante(estudianteDTO);
+        estudianteActualizado.setId(id);
+        Estudiante estudianteGuardado = estudianteRepository.save(estudianteActualizado);
+        return convertirEstudianteADTO(estudianteGuardado);
     }
+
+
     // Para crear un nuevo estudiante
     @Override
     public EstudianteDTO crearEstudiante(EstudianteDTO estudianteDTO) {
