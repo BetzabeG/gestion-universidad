@@ -13,11 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository  //interactua con la bd
 public class EstudianteRepository {
     private final Map<Long, Estudiante> estudiantes = new ConcurrentHashMap<>();
-    private final AtomicLong idContador = new AtomicLong(); 
-
-    public Optional<Estudiante> findById(Long id) {
-        return Optional.ofNullable(estudiantes.get(id));
-    }
+    private final AtomicLong idContador = new AtomicLong(1);
 
     public Estudiante save(Estudiante estudiante) {
         if (estudiante.getId() == null) {
@@ -30,6 +26,26 @@ public class EstudianteRepository {
     public List<Estudiante> findAll() {
         return new ArrayList<>(estudiantes.values());
     }
+
+    public Optional<Estudiante> findById(Long id) {
+        return Optional.ofNullable(estudiantes.get(id));
+    }
+/*
+
+    }*/
+
+
+    public Estudiante update(Long id, Estudiante estudiante) {
+        if (estudiantes.containsKey(id)) {
+            estudiante.setId(id);
+            estudiantes.put(id, estudiante);
+            return estudiante;
+        }
+        return null;
+    }
+
+
+
 
     public void deleteById(Long id) {
         estudiantes.remove(id);

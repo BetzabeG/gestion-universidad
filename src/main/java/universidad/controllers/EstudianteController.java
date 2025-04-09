@@ -31,7 +31,7 @@ public class EstudianteController {
         EstudianteDTO estudianteActualizado = estudianteService.actualizarEstudiante(id, estudianteDTO);
         return ResponseEntity.ok(estudianteActualizado);
     }
-
+    // creac estudiante
     @PostMapping("/estudiantes")
     public ResponseEntity<EstudianteDTO> crearEstudiante(@RequestBody EstudianteDTO estudianteDTO) {
         EstudianteDTO nuevoEstudiante = estudianteService.crearEstudiante(estudianteDTO);
