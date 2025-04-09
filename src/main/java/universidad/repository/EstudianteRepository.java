@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-@Repository
+@Repository  //interactua con la bd
 public class EstudianteRepository {
     private final Map<Long, Estudiante> estudiantes = new ConcurrentHashMap<>();
     private final AtomicLong idContador = new AtomicLong(); 

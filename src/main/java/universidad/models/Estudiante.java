@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
+
 public class Estudiante extends Persona {
     private String numeroInscripcion;
 }
