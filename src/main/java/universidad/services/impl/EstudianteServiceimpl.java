@@ -1,7 +1,7 @@
 package universidad.services.impl;
 import universidad.dtos.EstudianteDTO;
 import universidad.models.Estudiante;
-import universidad.repository.EstudianteRepositorys;
+import universidad.repository.EstudianteRepository;
 import universidad.services.IEstudianteService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,77 +10,41 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EstudianteServiceimpl implements IEstudianteService{
-    private final EstudianteRepositorys estudianteRepositorys;
+    //private final EstudianteRepository estudianteRepository;
     @Autowired
-    public EstudianteServiceimpl(EstudianteRepositorys estudianteRepositorys){
-        this.estudianteRepositorys = estudianteRepositorys;
-    }
-    @PostConstruct
-    public void init(){
-        estudianteRepositorys.init();
-    }
+    public EstudianteRepository estudianteRepository;
+
     @Override
     public List<EstudianteDTO> obtenerTodosLosEstudiantes() {
-        List<Estudiante> estudiantes = estudianteRepositorys.findAll();
-        List<EstudianteDTO> estudiantesDTO = new ArrayList<>();
-        for(Estudiante estudiante: estudiantes){
-            estudiantesDTO.add(EstudianteDTO.builder()
-                .id(estudiante.getId())
-                .nombre(estudiante.getNombre())
-                .apellido(estudiante.getApellido())
-                .email(estudiante.getEmail())
-                .fechaNacimiento(estudiante.getFechaNacimiento())
-                .numeroInscripcion(estudiante.getNumeroInscripcion())
-                .build());
-        }
-        return estudiantesDTO;
+        return estudianteRepository.findAll().stream()
+                .map(this::convertirEstudianteADTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     public EstudianteDTO obtenerEstudiantePorId(Long id) {
-        Estudiante estudiante = estudianteRepositorys.findById(id)
-            .orElseThrow(() -> new RuntimeException("Estudiante no encontrado con ID: " + id));
-        return convertirEstudianteADTO(estudiante);
-    }
-    /*
-    @Override
-    public EstudianteDTO actualizarEstudiante(Long id, EstudianteDTO estudianteDTO) {
-        Estudiante estudianteExistente = estudianteRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Estudiante no encontrado con ID: " + id));
-        estudianteExistente.setNombre(estudianteDTO.getNombre());
-        estudianteExistente.setApellido(estudianteDTO.getApellido());
-        estudianteExistente.setEmail(estudianteDTO.getEmail());
-        estudianteExistente.setFechaNacimiento(estudianteDTO.getFechaNacimiento());
-        estudianteExistente.setNumeroInscripcion(estudianteDTO.getNumeroInscripcion());
-
-        Estudiante estudianteActualizado = estudianteRepository.save(estudianteExistente);
-        return convertirEstudianteADTO(estudianteActualizado);
-    }*/
-    @Override
-    public EstudianteDTO actualizarEstudiante(Long id, EstudianteDTO estudianteDTO) {
-        obtenerEstudiantePorId(id);
-        Estudiante estudianteActualizado = convertirDTOaEstudiante(estudianteDTO);
-        estudianteActualizado.setId(id);
-        Estudiante estudianteGuardado = estudianteRepositorys.save(estudianteActualizado);
-        return convertirEstudianteADTO(estudianteGuardado);
+        return null;
     }
 
+    @Override
+    public EstudianteDTO actualizarEstudiante(Long id, EstudianteDTO estudianteDTO) {
+        return null;
+    }
 
-    // Para crear un nuevo estudiante
     @Override
     public EstudianteDTO crearEstudiante(EstudianteDTO estudianteDTO) {
-        Estudiante nuevoEstudiante = convertirDTOaEstudiante(estudianteDTO);
-        Estudiante estudianteGuardado = estudianteRepositorys.save(nuevoEstudiante);
-        return convertirEstudianteADTO(estudianteGuardado);
+        return null;
     }
-    // para eliminar un estudiante
+
     @Override
     public void eliminarEstudiante(Long id) {
-        estudianteRepositorys.deleteById(id);
+
     }
+
 
     private EstudianteDTO convertirEstudianteADTO(Estudiante estudiante){
         return EstudianteDTO.builder()
@@ -102,5 +66,5 @@ public class EstudianteServiceimpl implements IEstudianteService{
             .fechaNacimiento(estudianteDTO.getFechaNacimiento())
             .numeroInscripcion(estudianteDTO.getNumeroInscripcion())
             .build();
-    }  
+    }
 }
