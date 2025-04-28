@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @SuperBuilder
 
 @Entity // es una clase JPA
-@Table (name="personas")
+@Table (name="persona")
 @Inheritance(strategy = InheritanceType.JOINED)
 
 public abstract class Persona {
